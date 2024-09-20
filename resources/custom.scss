@@ -1,0 +1,111 @@
+/*-- scss:defaults --*/
+
+/*-- colors --*/
+$core-color: #4365e2;
+$hl-color-1: #ff6264;
+$hl-color-2: #01d17c;
+$hl-color-3: #464646;
+$bl-color-1: #ddd9d6;
+$bl-color-2: #f4cec3;
+$bl-color-3: #ffecd2;
+$bl-color-4: #d1e2f2;
+$bl-color-5: #c4ebd0;
+$bg-color: #fffaf4;
+
+$selection-bg: $hl-color-3;
+$body-bg: #fff;
+$body-color: $hl-color-3;
+$link-color: $core-color;
+$presentation-heading-color: $core-color !default;
+
+$mermaid-bg-color: $body-bg;
+$mermaid-edge-color: $body-color;
+$mermaid-node-fg-color: $body-color;
+$mermaid-fg-color: $body-color;
+$mermaid-fg-color--lighter: lighten($body-bg, 10%);
+$mermaid-fg-color--lightest: lighten($body-bg, 20%);
+$mermaid-label-bg-color: $bg-color;
+$mermaid-label-fg-color: $body-color;
+$mermaid-node-fg-color: $body-color;
+$mermaid-node-bg-color: $bl-color-5;
+
+/*-- fonts --*/
+$font-family-sans-serif: 'baxter_sansregular', sans-serif;
+$presentation-heading-font: 'baxter_sansbold', sans-serif;
+$mermaid-font-family: $font-family-sans-serif;
+
+/*-- scss:rules --*/
+
+.reveal a {
+  line-height: 1.3em;
+}
+
+.bg-slide {
+  background-color: $bg-color !important;
+  color: $hl-color-3 !important;
+}
+
+b, strong {
+   color: $hl-color-1;
+   font-weight: bold !important;
+}
+
+.bg-slide h1, h2, h3, h4 {
+  color: $core-color !important;
+}
+
+.title-page {
+  background-color: $core-color !important;
+}
+
+.title-page h1 {
+  color: #fff !important;
+  text-align: left;
+}
+
+.title-page p {
+  color: #fff !important;
+  text-align: left;
+}
+
+.title-page br {
+  line-height: 0.1vh;
+}
+
+.title-page .author {
+  color: #fff !important;
+  font-size: 3vw;
+  text-align: left;
+}
+
+.title-page .institute {
+  color: #fff !important;
+  font-size: 3vw;
+  text-align: left;
+}
+
+.title-page .conference {
+  color: #fff !important;
+  font-size: 2vw;
+  text-align: left;
+}
+
+.title-page .date {
+  color: #fff !important;
+  font-size: 2vw;
+  text-align: left;
+}
+
+.title-page .footer p {
+  color: #fff !important;
+}
+
+.title-page .logo {
+  position: absolute; 
+  top: -80px; 
+  right: -80px;
+}
+
+.callout strong {
+  color: $hl-color-3; 
+}

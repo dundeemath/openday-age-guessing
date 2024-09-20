@@ -1,0 +1,199 @@
+---
+title: "Open Day with Mathematics"
+author: "Eric Hall (ehall001@dundee.ac.uk)"
+institute: "Baxter Fellow and Lecturer in Applied Mathematics"
+date: "2023-10-28"
+from: markdown+emoji
+format: 
+  revealjs:
+    html-math-method: mathjax
+    theme: [default, resources/custom.scss]
+    css: resources/fonts.css
+    logo: resources/logo.png
+    footer: ""
+    template-partials:
+      - title-slide.html
+    transition: slide
+    background-transition: fade
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(fontawesome)
+```
+
+## What is *Statistics*?
+
+Statistics is the science of understanding **uncertainty** and **natural variation**.
+
+::: columns
+::: {.column width="50%"}
+![](images/statistics-review.jpg){width="100%" alt="Chalkboard with the word Statistics and all of statistics."}
+:::
+
+::: {.column width="50%"}
+> Statistics is a collection of procedures and principles for gaining and analyzing information to educate people and help them make better decisions when faced with uncertainty. (Utts, 2014)
+:::
+:::
+
+## Statistical inference
+
+Often we are interested in estimating a characteristic of a population based on a small number of samples.
+
+```{mermaid}
+%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '32px'}}}%%
+flowchart LR
+  A(("Data")) & B(("Models")) --> C(("Inferential Procedure")) ==> D(("Population"))
+```
+
+The idea of **statistical inference** is to use statistical models together with data to make good estimates of population characteristics.
+
+## How might you... {.center .bg-slide}
+
+::: {r-fit-text}
+How might you estimate the proportion of the earth covered by water?
+:::
+
+## Inferences for a proportion
+
+::: {.fragment .semi-fade-out}
+Let $p$ be the true proportion of the earth's surface covered with water --- $p$ might be unknown to us.
+
+How might we gain knowledge about $p$?
+:::
+
+::: {.fragment .fade-in}
+Let's imagine that we have sampled $n$ points on the earth's surface. For each point $i$ we might record $x_i = 1$ if point $i$ is water and $x_i = 0$ if point $i$ is land.
+
+Then we might **estimate** $p$ by: $$\hat{p} = \frac{1}{n} \sum_{i=1}^n x_i$$
+:::
+
+## Random sampling is key
+
+In order for this idea to work, can we take any sample of points?
+
+::: {.fragment .fade-up}
+**No!** The points need to be representative.
+
+**Random sampling** is a way of obtaining a representative sample.
+:::
+
+## Random, but biased
+
+```{r}
+#| label: fig-biased-scatter
+#| fig-cap: "Biased sample of 5000 random points. The density of points increases around the center."
+x <- c(runif(550, min = -0.4, max = 0.4),
+       runif(1200, min = -0.6, max = 0.6),
+       runif(1500, min = -0.8, max = 0.8),
+       runif(1750, min = -1, max = 1))
+y <- c(runif(550, min = -0.4, max = 0.4),
+       runif(1200, min = -0.6, max = 0.6),
+       runif(1500, min = -0.8, max = 0.8),
+       runif(1750, min = -1, max = 1))
+dat <- tibble(x, x+y)
+
+dat |> ggplot(aes(x = x, y = y)) + 
+  geom_rect(xmin=-1, xmax=1, ymin=-1, ymax=1, color = "#ff6264", linewidth = 2, alpha = 0) +
+  geom_point(alpha = 0.8) + 
+  theme_void()
+```
+
+## Uniform random sampling
+
+```{r}
+#| label: fig-random-scatter
+#| fig-cap: "5000 random points sampled uniformly in the box $[-1, 1] \\times [-1,1]$. Note how the points fill the space."
+x <- runif(5000, min=-1, max=1)
+y <- runif(5000, min=-1, max=1)
+dat <- tibble(x, y)
+
+dat |> ggplot(aes(x = x, y = y)) + 
+  geom_rect(xmin=-1, xmax=1, ymin=-1, ymax=1, color = "#ff6264", linewidth = 2, alpha = 0) +
+  geom_point(alpha = 0.8) + 
+  theme_void()
+```
+
+## An experiment
+
+### `r fa("clock")` 10 min - whole group activity
+
+::: columns
+::: {.column width="60%"}
+-   The globe will be tossed around.
+-   Hit the globe with the tip of your index finger.
+-   Shout:
+    -   "water!" if you touch water, or
+    -   "land!" if you touch land.
+
+**Do not flinch `r fa("face-smile-wink")`**
+:::
+
+::: {.column width="40%"}
+![](images/globe.jpg){width="100%" alt="Photo of large inflatable globe (topographic)."}
+:::
+:::
+
+## Our data
+
+```{r}
+library(readxl)
+water <- read_excel("water.xlsx")
+
+glimpse(water)
+```
+
+## Based on our samples
+
+```{r}
+n <- length(water$obs)
+phat <- sum(water$obs)/n
+
+zalpha <- qnorm(0.025, lower.tail = FALSE)
+se <- sqrt(phat*(1-phat)/n)
+ci <- c(phat - zalpha*se, phat + zalpha*se)
+p0 <- 0.71
+z <- (phat-0.71)/sqrt((p0*(1-p0))/n)
+P <- 2*pnorm(abs(z), lower.tail = FALSE)
+```
+
+::: {.fragment .fade-in}
+-   Point estimate $\hat{p} = \frac{1}{n} \sum_{i=1}^n x_i = `r signif(phat, 2)`$.
+:::
+
+::: {.fragment .fade-in}
+-   95% confidence interval for $p$, is $\hat{p} \pm z_{0.025} \cdot \mathsf{se}(\hat{p}) = (`r signif(ci, 3)`)$.
+:::
+
+::: aside
+-   A interval estimate contains a range of plausible values for the true parameter. The 95% confidence is a statement about the reliability of the interval estimate: for 100 such intervals, we would expect approximately 95 to contain the true parameter value.
+:::
+
+::: {.fragment .fade-in}
+-   The true value of $p$ is believed to be `r p0`. How surprised are we by the observed value $\hat{p}$? $P$-value is $`r format(P, digits=3)`$.
+
+::: aside
+-   Hypotheses $H_0 : p = 0.71$ and $H_a : p \neq 0.71$. Then $z = (\hat{p} - 0.71) / \sqrt{p_0 (1-p_0) / n}$ and $P = 2(1-\Phi(z))$
+:::
+:::
+
+## Topics covered today
+
+-   Random sampling (emphasize importance of representativeness of random samples)
+-   Sampling distribution for a proportion (variation in estimators)
+-   Bias vs variation
+-   Things that are accessible are typically easier to sample (implications for design of experiments)
+-   Introduction to inference (using data + models to make informed estimates of unknown population characteristics)
+
+## Maths and Stats module highlights {.bg-slide}
+
+### **The Dundee Difference**
+
+-   **Experiential learning** activities within modules (Botanics workshop, R labs, report writing) and module choices (work placement module).
+-   Focus on **process, context and communicating outcomes**, following best practices in mathematical modelling and statistics education.
+-   Inclusion of real data sets and consider through the lens of **social justice**.
+
+## Thanks for listening! {.center .bg-slide}
+
+`r fa("hand-point-right")`  ehall001\@dundee.ac.uk

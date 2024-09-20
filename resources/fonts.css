@@ -1,0 +1,53 @@
+/* Baxter-Sans-Core-Regular - latin */
+@font-face {
+    font-family: 'baxter_sans_mediumbold';
+    src: url('fonts/baxtersans-bold-webfont.eot');
+    src: url('fonts/baxtersans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/baxtersans-bold-webfont.woff2') format('woff2'),
+         url('fonts/baxtersans-bold-webfont.woff') format('woff'),
+         url('fonts/baxtersans-bold-webfont.ttf') format('truetype'),
+         url('fonts/baxtersans-bold-webfont.svg#baxter_sans_mediumbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'baxter_sansmedium';
+    src: url('fonts/baxtersans-medium-webfont.eot');
+    src: url('fonts/baxtersans-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/baxtersans-medium-webfont.woff2') format('woff2'),
+         url('fonts/baxtersans-medium-webfont.woff') format('woff'),
+         url('fonts/baxtersans-medium-webfont.ttf') format('truetype'),
+         url('fonts/baxtersans-medium-webfont.svg#baxter_sansmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'baxter_sansregular';
+    src: url('fonts/baxtersans-regular-webfont.eot');
+    src: url('fonts/baxtersans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/baxtersans-regular-webfont.woff2') format('woff2'),
+         url('fonts/baxtersans-regular-webfont.woff') format('woff'),
+         url('fonts/baxtersans-regular-webfont.ttf') format('truetype'),
+         url('fonts/baxtersans-regular-webfont.svg#baxter_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'baxter_sansbold';
+    src: url('fonts/baxtersans-semibold-webfont.eot');
+    src: url('fonts/baxtersans-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/baxtersans-semibold-webfont.woff2') format('woff2'),
+         url('fonts/baxtersans-semibold-webfont.woff') format('woff'),
+         url('fonts/baxtersans-semibold-webfont.ttf') format('truetype'),
+         url('fonts/baxtersans-semibold-webfont.svg#baxter_sansbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+

@@ -1,0 +1,72 @@
+[
+  {
+    "objectID": "presentation.html#what-is-statistics",
+    "href": "presentation.html#what-is-statistics",
+    "title": "Open Day with Mathematics",
+    "section": "What is Statistics?",
+    "text": "What is Statistics?\nStatistics is the science of understanding uncertainty and natural variation.\n\n\n\n\n\nStatistics is a collection of procedures and principles for gaining and analyzing information to educate people and help them make better decisions when faced with uncertainty. (Utts, 2014)"
+  },
+  {
+    "objectID": "presentation.html#statistical-inference",
+    "href": "presentation.html#statistical-inference",
+    "title": "Open Day with Mathematics",
+    "section": "Statistical inference",
+    "text": "Statistical inference\n\nOften we are interested in estimating a characteristic of a population based on a small number of samples.\nWhen we estimate a population characteristic using an inferential procedure, we can sometimes make errors!\n\n\n\n\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '28px'}}}%%\n\nflowchart LR\n  A((\"Data\")) & B((\"Models\")) --&gt; C((\"Inference\")) ==&gt; D((\"Population\"))\n\n\n\n\nFigure 1: We use data and (statistical) models to make inferences about a population."
+  },
+  {
+    "objectID": "presentation.html#bias-and-variation",
+    "href": "presentation.html#bias-and-variation",
+    "title": "Open Day with Mathematics",
+    "section": "Bias and Variation",
+    "text": "Bias and Variation\n\nError is the difference between the true value of a quantity and the observed or recorded value.\nSources of error can be described as systematic (bias) or random (due to chance variation).\nVariation is related to imprecision and bias is related to inaccuracy.\n\n\n\n\n\n\n\nPedagogical note\n\n\nStudents often find it difficult to distinguish between bias and variation in practice."
+  },
+  {
+    "objectID": "presentation.html#how-do-we-support-students-in-learning-the-distinction-between-bias-and-variation-in-mathematics-at-dundee",
+    "href": "presentation.html#how-do-we-support-students-in-learning-the-distinction-between-bias-and-variation-in-mathematics-at-dundee",
+    "title": "Open Day with Mathematics",
+    "section": "How do we support students in learning the distinction between bias and variation in Mathematics at Dundee?",
+    "text": "How do we support students in learning the distinction between bias and variation in Mathematics at Dundee?\nWith experiential learning activities of course!"
+  },
+  {
+    "objectID": "presentation.html#age-guessing-group-task-10-min",
+    "href": "presentation.html#age-guessing-group-task-10-min",
+    "title": "Open Day with Mathematics",
+    "section": "Age Guessing: group task (10 min)",
+    "text": "Age Guessing: group task (10 min)\n\nTen cards display a photo of a person unknown to you. These cards will be passed around from group to group.\nFor each card:\n\nEstimate the age of the person in the photo in whole years; your group must come up with a single estimate.\nRecord your estimate in the table provided.\n\nPlease select one person to report your group’s estimates."
+  },
+  {
+    "objectID": "presentation.html#discussion",
+    "href": "presentation.html#discussion",
+    "title": "Open Day with Mathematics",
+    "section": "Discussion",
+    "text": "Discussion\nWhat were your estimation strategies?"
+  },
+  {
+    "objectID": "presentation.html#the-big-reveal",
+    "href": "presentation.html#the-big-reveal",
+    "title": "Open Day with Mathematics",
+    "section": "The big reveal1",
+    "text": "The big reveal1\n\n\n\n\n\n\n\n\n\nData from UTKFace dataset https://susanqq.github.io/UTKFace/."
+  },
+  {
+    "objectID": "presentation.html#your-estimates",
+    "href": "presentation.html#your-estimates",
+    "title": "Open Day with Mathematics",
+    "section": "Your estimates",
+    "text": "Your estimates\n#| standalone: true\n#| viewerHeight: 500\n\nlibrary(shiny)\nlibrary(shinyMatrix)\nlibrary(bslib)\nlibrary(tibble)\nlibrary(tidyr)\nlibrary(readr)\nlibrary(dplyr, warn.conflicts = FALSE)\nlibrary(ggplot2)\n\n# Define UI for random distribution app ----\n# Sidebar layout with input and output definitions ----\n\nm &lt;- matrix(rep(NA, 60), 6, 10, dimnames = list(c(LETTERS[1:6]), sprintf(\"%s\", seq(1:10))))\n\nui &lt;- page_sidebar(\n  sidebar = sidebar(\n    title = \"Estimated age (est_age) for each card by group\",\n    matrixInput(\"mat\",\n                value = m,\n                inputClass = \"numeric\",\n                rows = list(names = TRUE, extend = FALSE), \n                cols = list(names = TRUE, extend = FALSE)),\n    fill = TRUE,\n    fillable = TRUE,\n    width = 600\n  ),\n  fillable = TRUE,\n  fillable_mobile = TRUE,\n  # Main panel for displaying outputs ----\n  # Output: A tabset that combines three panels ----\n  navset_card_underline(\n    nav_panel(\"Data\", tableOutput(\"data\")),\n    nav_panel(\"Variation\", tableOutput(\"variation\")),\n    nav_panel(\"Bias\", plotOutput(\"bias\"))\n  )\n)\n\n\n# Define server logic ----\nserver &lt;- function(input, output, session) {\n  rv &lt;- reactiveValues(truthmat = t(matrix(rep(c(36L, 57L,  8L, 87L, 60L, 34L, 56L, 28L, 39L, 72L), 6), 10, 6, dimnames = list(sprintf(\"%s\", seq(1:10)), c(LETTERS[1:6])))))\n  \n  dat &lt;- reactive({\n    tibble(group = factor(rep(LETTERS[1:6],10)), \n           card = factor(sort(rep(1:10, 6))),\n           est_age = c(as.integer(input$mat)),\n           true_age = c(rv$truthmat),\n           error = c(as.integer(input$mat) - rv$truthmat))\n  })\n  \n  output$data &lt;- renderTable({\n    dat() |&gt; as.data.frame()\n  }, rownames = FALSE, colnames = TRUE)\n  \n  output$variation &lt;- renderTable({\n    dat() |&gt; \n      group_by(.data$group) |&gt;\n      summarise(mean_abs_err = mean(abs(.data$error))) |&gt;\n      as.data.frame()\n  }, rownames = FALSE, colnames = TRUE)\n  \n  output$bias &lt;- renderPlot({\n    dat() |&gt;\n      ggplot() + \n      geom_boxplot(aes(y = .data$error, x = .data$card)) + \n      labs(title = \"Bias in age estimates (error &lt; 0 then 'look younger', error &gt; 0 then 'look older')\",\n           y = \"Error (est_age - true_age)\",\n           x = \"Person (card)\") +\n      theme_classic(base_size = 18)\n  })\n}\n\n# Create Shiny app ----\nshinyApp(ui, server)"
+  },
+  {
+    "objectID": "presentation.html#mathematics-module-highlights",
+    "href": "presentation.html#mathematics-module-highlights",
+    "title": "Open Day with Mathematics",
+    "section": "Mathematics module highlights",
+    "text": "Mathematics module highlights\nThe Dundee Difference\n\nExperiential learning activities within modules (Botanics workshop, programming, report writing) and module choices (work placement and project modules).\nFocus on process, context, and communicating outcome - following best practices in mathematical modelling and statistics education.\nInclusion of real data sets, considering context through the lens of social justice."
+  },
+  {
+    "objectID": "presentation.html#thanks-for-listening",
+    "href": "presentation.html#thanks-for-listening",
+    "title": "Open Day with Mathematics",
+    "section": "Thanks for listening!",
+    "text": "Thanks for listening!\n   Dr Eric Hall (ehall001@dundee.ac.uk)"
+  }
+]
