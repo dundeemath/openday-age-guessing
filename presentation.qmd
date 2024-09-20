@@ -188,4 +188,7 @@ shinyApp(ui, server)
 - Inclusion of real data sets, considering context through the lens of **social justice**. 
 
 ## Thanks for listening! {.mySegue .center}
+
 `r fa("hand-point-right")` &nbsp; Dr Eric Hall (ehall001@dundee.ac.uk)
+
+`r fa("hand-point-right")` &nbsp; Dr Karen Meyer (kmeyer001@dundee.ac.uk)
