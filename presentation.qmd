@@ -187,8 +187,13 @@ shinyApp(ui, server)
 - Focus on **process, context, and communicating outcome** - following best practices in mathematical modelling and statistics education.
 - Inclusion of real data sets, considering context through the lens of **social justice**. 
 
-## Thanks for listening! {.mySegue .center}
+## Thanks for listening {.mySegue .center}
 
-`r fa("hand-point-right")` &nbsp; Dr Eric Hall (ehall001@dundee.ac.uk)
+Enjoy the rest of your day at the University of Dundee!
 
-`r fa("hand-point-right")` &nbsp; Dr Karen Meyer (kmeyer001@dundee.ac.uk)
+## {.center}
+::: aside 
+Last updated: `r Sys.Date()`.
+
+If you have questions about this content, please contact </br> `r fa("hand-point-right")` Dr Eric Hall (<ehall001@dundee.ac.uk>).
+:::
