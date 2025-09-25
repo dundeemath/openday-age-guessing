@@ -180,18 +180,18 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-## Mathematics module highlights
+## Mathematics module highlights {.green}
 ### The Dundee Difference 
 
 -  **Experiential learning** activities within modules (Botanics workshop, programming, report writing) and module choices (work placement and project modules).
 - Focus on **process, context, and communicating outcome** - following best practices in mathematical modelling and statistics education.
 - Inclusion of real data sets, considering context through the lens of **social justice**. 
 
-## Thanks for listening {.mySegue .center}
+## Thanks for listening {.mySegue .center .blue}
 
 Enjoy the rest of your day at the University of Dundee!
 
-## {.center}
+## {.center .blue}
 ::: aside 
 Last updated: `r Sys.Date()`.
 

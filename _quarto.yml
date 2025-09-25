@@ -13,7 +13,7 @@ website:
 
 format: 
   revealjs:
-    html-math-method: mathjax
+    html-math-method: katex
     theme: [default, resources/custom.scss]
     css: resources/fonts.css
     logo: resources/logo.png

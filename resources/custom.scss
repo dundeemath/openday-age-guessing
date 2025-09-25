@@ -109,3 +109,10 @@ b, strong {
 .callout strong {
   color: $hl-color-3; 
 }
+
+.reveal:has(.slides section.aside.present) .backgrounds .slide-background.present, .reveal:has(.slides section.aside.past) .backgrounds .slide-background.past, .reveal:has(.slides section.aside.future) .backgrounds .slide-background.future { background: $bl-color-1 !important; }
+
+.reveal:has(.slides section.red.present) .backgrounds .slide-background.present, .reveal:has(.slides section.red.past) .backgrounds .slide-background.past, .reveal:has(.slides section.red.future) .backgrounds .slide-background.future { background: $bl-color-2 !important; }
+.reveal:has(.slides section.yellow.present) .backgrounds .slide-background.present, .reveal:has(.slides section.yellow.past) .backgrounds .slide-background.past, .reveal:has(.slides section.yellow.future) .backgrounds .slide-background.future { background: $bl-color-3 !important; }
+.reveal:has(.slides section.blue.present) .backgrounds .slide-background.present, .reveal:has(.slides section.blue.past) .backgrounds .slide-background.past, .reveal:has(.slides section.blue.future) .backgrounds .slide-background.future { background: $bl-color-4 !important; }
+.reveal:has(.slides section.green.present) .backgrounds .slide-background.present, .reveal:has(.slides section.green.past) .backgrounds .slide-background.past, .reveal:has(.slides section.green.future) .backgrounds .slide-background.future { background: $bl-color-5 !important; }
