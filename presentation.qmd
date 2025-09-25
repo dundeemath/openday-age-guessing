@@ -102,7 +102,7 @@ dat |>
 
 ```{shinylive-r}
 #| standalone: true
-#| viewerHeight: 500
+#| viewerHeight: 600
 
 library(shiny)
 library(shinyMatrix)
